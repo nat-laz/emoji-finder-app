@@ -6,21 +6,20 @@ import EmojiItem from "./EmojiItem";
 const EmojisContainer = () => {
   const [inputValue, setInputValue] = useState("");
   const [emoji, setEmoji] = useState(emojis);
-  const [filteredEmo, setFilteredEmo]= useState([])
-  
-  console.log("Array: ",emoji)
-  console.log("Input: ",inputValue);
 
-  const searchingEmoji = (text) =>{
-      let result = emoji.filter(item=>item.keywords.includes(text))
-      setFilteredEmo(result)
-  }
+  const searchingEmoji = (text) => {
+    let result = emojis.filter(
+      (item) =>
+        item.title.includes(text.toLowerCase()) ||
+        item.keywords.includes(text.toLowerCase())
+    );
+    setEmoji(result);
+  };
 
-
-  useEffect(()=>{
-    !inputValue && setEmoji(emojis)
-    searchingEmoji(inputValue)
-  },[inputValue])
+  useEffect(() => {
+    setEmoji(emojis);
+    searchingEmoji(inputValue);
+  }, [inputValue]);
 
   return (
     <div className="main">
